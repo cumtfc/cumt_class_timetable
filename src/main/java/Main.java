@@ -117,7 +117,7 @@ public class Main {
                 }
 
                 // 创建事件
-                String eventName = kbItem.getString("kcmc");
+                String eventName = kbItem.getString("kcmc")+" at "+kbItem.getString("cdmc");
                 DateTime start = new DateTime(java.util.Date.from(startDate.atZone(zoneId).toInstant()).getTime());
                 DateTime end = new DateTime(java.util.Date.from(endDate.atZone(zoneId).toInstant()).getTime());
                 VEvent meeting = new VEvent(start, end, eventName);
@@ -159,8 +159,8 @@ public class Main {
                 meeting.getProperties().add(rule);
 
 
-                // 提醒,提前10分钟
-                VAlarm valarm = new VAlarm(new Dur(0, 0, -10, 0));
+                // 提醒,提前15分钟
+                VAlarm valarm = new VAlarm(new Dur(0, 0, -15, 0));
                 valarm.getProperties().add(new Summary("课程提醒"));
                 valarm.getProperties().add(Action.DISPLAY);
                 valarm.getProperties().add(new Description(kbItem.getString("kcmc")));
