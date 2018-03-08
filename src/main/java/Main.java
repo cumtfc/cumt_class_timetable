@@ -1,4 +1,3 @@
-import net.fortuna.ical4j.data.CalendarBuilder;
 import net.fortuna.ical4j.data.CalendarOutputter;
 import net.fortuna.ical4j.data.ParserException;
 import net.fortuna.ical4j.model.*;
@@ -10,10 +9,9 @@ import net.fortuna.ical4j.util.UidGenerator;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
+import java.net.URL;
+import java.net.URLConnection;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
@@ -40,7 +38,12 @@ public class Main {
 
         String in = "src/main/resources/Shanghai.ics";
         String out = "src/main/resources/kcb.ics";
-        String kcbJson = "{\"xskbsfxstkzt\":\"0\",\"kblx\":7,\"xsxx\":{\"XH_ID\":\"09153810\",\"XQMMC\":\"2\",\"XNM\":\"2017\",\"XH\":\"09153810\",\"XKKG\":\"1\",\"XKKGXQ\":\"1~('12')\",\"KXKXXQ\":\"('12')\",\"XNMC\":\"2017-2018\",\"XQM\":\"12\",\"XM\":\"冯楚\"},\"sjkList\":[{\"jgpxzd\":\"1\",\"kcmc\":\"专业实习●\",\"listnav\":\"false\",\"localeKey\":\"zh_CN\",\"pageable\":true,\"qsz\":\"20\",\"queryModel\":{\"currentPage\":1,\"currentResult\":0,\"entityOrField\":false,\"limit\":15,\"offset\":0,\"pageNo\":0,\"pageSize\":15,\"showCount\":10,\"totalCount\":0,\"totalPage\":0,\"totalResult\":0},\"rangeable\":true,\"rsdzjs\":0,\"sfsjk\":\"1\",\"totalResult\":\"0\",\"userModel\":{\"monitor\":false,\"roleCount\":0,\"roleKeys\":\"\",\"roleValues\":\"\",\"status\":0,\"usable\":false},\"xm\":\"王辉1\",\"zhxs\":\"1\",\"zzz\":\"20\"},{\"jgpxzd\":\"1\",\"kcmc\":\"专业导论与学科前沿讲座●\",\"listnav\":\"false\",\"localeKey\":\"zh_CN\",\"pageable\":true,\"qsz\":\"20\",\"queryModel\":{\"currentPage\":1,\"currentResult\":0,\"entityOrField\":false,\"limit\":15,\"offset\":0,\"pageNo\":0,\"pageSize\":15,\"showCount\":10,\"totalCount\":0,\"totalPage\":0,\"totalResult\":0},\"rangeable\":true,\"rsdzjs\":0,\"sfsjk\":\"1\",\"totalResult\":\"0\",\"userModel\":{\"monitor\":false,\"roleCount\":0,\"roleKeys\":\"\",\"roleValues\":\"\",\"status\":0,\"usable\":false},\"xm\":\"王辉1\",\"zhxs\":\"1\",\"zzz\":\"20\"},{\"jgpxzd\":\"1\",\"kcmc\":\"电子商务理论与实务训练（4）●\",\"listnav\":\"false\",\"localeKey\":\"zh_CN\",\"pageable\":true,\"qsz\":\"20\",\"queryModel\":{\"currentPage\":1,\"currentResult\":0,\"entityOrField\":false,\"limit\":15,\"offset\":0,\"pageNo\":0,\"pageSize\":15,\"showCount\":10,\"totalCount\":0,\"totalPage\":0,\"totalResult\":0},\"rangeable\":true,\"rsdzjs\":0,\"sfsjk\":\"1\",\"totalResult\":\"0\",\"userModel\":{\"monitor\":false,\"roleCount\":0,\"roleKeys\":\"\",\"roleValues\":\"\",\"status\":0,\"usable\":false},\"xm\":\"王贺朝,张卫华,杨明智\",\"zhxs\":\"1\",\"zzz\":\"20\"}],\"kbList\":[{\"cd_id\":\"sgw0000524\",\"cdmc\":\"博1-B503\",\"jc\":\"3-4节\",\"jcor\":\"3-4\",\"jcs\":\"3-4\",\"jgh_id\":\"090209\",\"jgpxzd\":\"1\",\"jxb_id\":\"5FC994C6550B0000E053C0A86D5D731E\",\"jxbmc\":\"公司理财-0001\",\"kch_id\":\"1102100609COFI\",\"kcmc\":\"公司理财\",\"khfsmc\":\"未安排\",\"listnav\":\"false\",\"localeKey\":\"zh_CN\",\"oldjc\":\"12\",\"oldzc\":\"255\",\"pageable\":true,\"pkbj\":\"1\",\"queryModel\":{\"currentPage\":1,\"currentResult\":0,\"entityOrField\":false,\"limit\":15,\"offset\":0,\"pageNo\":0,\"pageSize\":15,\"showCount\":10,\"totalCount\":0,\"totalPage\":0,\"totalResult\":0},\"rangeable\":true,\"rsdzjs\":0,\"sxbj\":\"1\",\"totalResult\":\"0\",\"userModel\":{\"monitor\":false,\"roleCount\":0,\"roleKeys\":\"\",\"roleValues\":\"\",\"status\":0,\"usable\":false},\"xm\":\"张涛1\",\"xnm\":\"2017\",\"xqdm\":\"0\",\"xqh_id\":\"2\",\"xqj\":\"1\",\"xqjmc\":\"星期一\",\"xqm\":\"12\",\"xqmc\":\"南湖校区\",\"xsdm\":\"01\",\"xslxbj\":\"★\",\"zcd\":\"1-8周\",\"zcmc\":\"讲师\",\"zyfxmc\":\"无方向\"},{\"cd_id\":\"sgw0001228\",\"cdmc\":\"博2-A302\",\"jc\":\"5-6节\",\"jcor\":\"5-6\",\"jcs\":\"5-6\",\"jgh_id\":\"090073\",\"jgpxzd\":\"1\",\"jxb_id\":\"5FA79856E5B90254E053C0A86D5D76E0\",\"jxbmc\":\"电子金融与安全-0001\",\"kch_id\":\"1108220509EFAS\",\"kcmc\":\"电子金融与安全\",\"khfsmc\":\"未安排\",\"listnav\":\"false\",\"localeKey\":\"zh_CN\",\"oldjc\":\"48\",\"oldzc\":\"255\",\"pageable\":true,\"pkbj\":\"1\",\"queryModel\":{\"currentPage\":1,\"currentResult\":0,\"entityOrField\":false,\"limit\":15,\"offset\":0,\"pageNo\":0,\"pageSize\":15,\"showCount\":10,\"totalCount\":0,\"totalPage\":0,\"totalResult\":0},\"rangeable\":true,\"rsdzjs\":0,\"sxbj\":\"1\",\"totalResult\":\"0\",\"userModel\":{\"monitor\":false,\"roleCount\":0,\"roleKeys\":\"\",\"roleValues\":\"\",\"status\":0,\"usable\":false},\"xm\":\"王贺朝\",\"xnm\":\"2017\",\"xqdm\":\"0\",\"xqh_id\":\"2\",\"xqj\":\"1\",\"xqjmc\":\"星期一\",\"xqm\":\"12\",\"xqmc\":\"南湖校区\",\"xsdm\":\"01\",\"xslxbj\":\"★\",\"zcd\":\"1-8周\",\"zcmc\":\"副教授\",\"zyfxmc\":\"无方向\"},{\"cd_id\":\"sgw0000533\",\"cdmc\":\"博1-B102\",\"jc\":\"3-4节\",\"jcor\":\"3-4\",\"jcs\":\"3-4\",\"jgh_id\":\"110069\",\"jgpxzd\":\"1\",\"jxb_id\":\"5F42373F7DDB0072E053C0A86D5CDB54\",\"jxbmc\":\"经济法-0001\",\"kch_id\":\"0301105311ECOL\",\"kcmc\":\"经济法\",\"khfsmc\":\"未安排\",\"listnav\":\"false\",\"localeKey\":\"zh_CN\",\"oldjc\":\"12\",\"oldzc\":\"255\",\"pageable\":true,\"pkbj\":\"1\",\"queryModel\":{\"currentPage\":1,\"currentResult\":0,\"entityOrField\":false,\"limit\":15,\"offset\":0,\"pageNo\":0,\"pageSize\":15,\"showCount\":10,\"totalCount\":0,\"totalPage\":0,\"totalResult\":0},\"rangeable\":true,\"rsdzjs\":0,\"sxbj\":\"1\",\"totalResult\":\"0\",\"userModel\":{\"monitor\":false,\"roleCount\":0,\"roleKeys\":\"\",\"roleValues\":\"\",\"status\":0,\"usable\":false},\"xm\":\"张小青\",\"xnm\":\"2017\",\"xqdm\":\"0\",\"xqh_id\":\"2\",\"xqj\":\"2\",\"xqjmc\":\"星期二\",\"xqm\":\"12\",\"xqmc\":\"南湖校区\",\"xsdm\":\"01\",\"xslxbj\":\"★\",\"zcd\":\"1-8周\",\"zcmc\":\"讲师\",\"zyfxmc\":\"无方向\"},{\"cd_id\":\"sgw0001060\",\"cdmc\":\"博2-B404\",\"jc\":\"3-4节\",\"jcor\":\"3-4\",\"jcs\":\"3-4\",\"jgh_id\":\"090206\",\"jgpxzd\":\"1\",\"jxb_id\":\"5FA6D3477FBE019EE053C0A86D5C4131\",\"jxbmc\":\"信息系统分析与设计-0001\",\"kch_id\":\"1108321309ISAD\",\"kcmc\":\"信息系统分析与设计\",\"khfsmc\":\"未安排\",\"listnav\":\"false\",\"localeKey\":\"zh_CN\",\"oldjc\":\"12\",\"oldzc\":\"130560\",\"pageable\":true,\"pkbj\":\"1\",\"queryModel\":{\"currentPage\":1,\"currentResult\":0,\"entityOrField\":false,\"limit\":15,\"offset\":0,\"pageNo\":0,\"pageSize\":15,\"showCount\":10,\"totalCount\":0,\"totalPage\":0,\"totalResult\":0},\"rangeable\":true,\"rsdzjs\":0,\"sxbj\":\"1\",\"totalResult\":\"0\",\"userModel\":{\"monitor\":false,\"roleCount\":0,\"roleKeys\":\"\",\"roleValues\":\"\",\"status\":0,\"usable\":false},\"xm\":\"杨明智\",\"xnm\":\"2017\",\"xqdm\":\"0\",\"xqh_id\":\"2\",\"xqj\":\"2\",\"xqjmc\":\"星期二\",\"xqm\":\"12\",\"xqmc\":\"南湖校区\",\"xsdm\":\"01\",\"xslxbj\":\"★\",\"zcd\":\"10-17周\",\"zcmc\":\"讲师\",\"zyfxmc\":\"无方向\"},{\"cd_id\":\"sgw0001060\",\"cdmc\":\"博2-B404\",\"jc\":\"5-6节\",\"jcor\":\"5-6\",\"jcs\":\"5-6\",\"jgh_id\":\"090197\",\"jgpxzd\":\"1\",\"jxb_id\":\"5F999D917F900054E053C0A86D5DBF56\",\"jxbmc\":\"网络营销-0001\",\"kch_id\":\"1108224209NETM\",\"kcmc\":\"网络营销\",\"khfsmc\":\"未安排\",\"listnav\":\"false\",\"localeKey\":\"zh_CN\",\"oldjc\":\"48\",\"oldzc\":\"261120\",\"pageable\":true,\"pkbj\":\"1\",\"queryModel\":{\"currentPage\":1,\"currentResult\":0,\"entityOrField\":false,\"limit\":15,\"offset\":0,\"pageNo\":0,\"pageSize\":15,\"showCount\":10,\"totalCount\":0,\"totalPage\":0,\"totalResult\":0},\"rangeable\":true,\"rsdzjs\":0,\"sxbj\":\"1\",\"totalResult\":\"0\",\"userModel\":{\"monitor\":false,\"roleCount\":0,\"roleKeys\":\"\",\"roleValues\":\"\",\"status\":0,\"usable\":false},\"xm\":\"张卫华\",\"xnm\":\"2017\",\"xqdm\":\"0\",\"xqh_id\":\"2\",\"xqj\":\"2\",\"xqjmc\":\"星期二\",\"xqm\":\"12\",\"xqmc\":\"南湖校区\",\"xsdm\":\"01\",\"xslxbj\":\"★\",\"zcd\":\"11-18周\",\"zcmc\":\"副教授\",\"zyfxmc\":\"无方向\"},{\"cd_id\":\"sgw0000567\",\"cdmc\":\"博1-B203\",\"jc\":\"1-2节\",\"jcor\":\"1-2\",\"jcs\":\"1-2\",\"jgh_id\":\"090209\",\"jgpxzd\":\"1\",\"jxb_id\":\"5FC994C6550B0000E053C0A86D5D731E\",\"jxbmc\":\"公司理财-0001\",\"kch_id\":\"1102100609COFI\",\"kcmc\":\"公司理财\",\"khfsmc\":\"未安排\",\"listnav\":\"false\",\"localeKey\":\"zh_CN\",\"oldjc\":\"3\",\"oldzc\":\"127\",\"pageable\":true,\"pkbj\":\"1\",\"queryModel\":{\"currentPage\":1,\"currentResult\":0,\"entityOrField\":false,\"limit\":15,\"offset\":0,\"pageNo\":0,\"pageSize\":15,\"showCount\":10,\"totalCount\":0,\"totalPage\":0,\"totalResult\":0},\"rangeable\":true,\"rsdzjs\":0,\"sxbj\":\"1\",\"totalResult\":\"0\",\"userModel\":{\"monitor\":false,\"roleCount\":0,\"roleKeys\":\"\",\"roleValues\":\"\",\"status\":0,\"usable\":false},\"xm\":\"张涛1\",\"xnm\":\"2017\",\"xqdm\":\"0\",\"xqh_id\":\"2\",\"xqj\":\"3\",\"xqjmc\":\"星期三\",\"xqm\":\"12\",\"xqmc\":\"南湖校区\",\"xsdm\":\"01\",\"xslxbj\":\"★\",\"zcd\":\"1-7周\",\"zcmc\":\"讲师\",\"zyfxmc\":\"无方向\"},{\"cd_id\":\"sgw0000911\",\"cdmc\":\"博2-A403\",\"jc\":\"3-4节\",\"jcor\":\"3-4\",\"jcs\":\"3-4\",\"jgh_id\":\"090073\",\"jgpxzd\":\"1\",\"jxb_id\":\"5FA79856E5B90254E053C0A86D5D76E0\",\"jxbmc\":\"电子金融与安全-0001\",\"kch_id\":\"1108220509EFAS\",\"kcmc\":\"电子金融与安全\",\"khfsmc\":\"未安排\",\"listnav\":\"false\",\"localeKey\":\"zh_CN\",\"oldjc\":\"12\",\"oldzc\":\"127\",\"pageable\":true,\"pkbj\":\"1\",\"queryModel\":{\"currentPage\":1,\"currentResult\":0,\"entityOrField\":false,\"limit\":15,\"offset\":0,\"pageNo\":0,\"pageSize\":15,\"showCount\":10,\"totalCount\":0,\"totalPage\":0,\"totalResult\":0},\"rangeable\":true,\"rsdzjs\":0,\"sxbj\":\"1\",\"totalResult\":\"0\",\"userModel\":{\"monitor\":false,\"roleCount\":0,\"roleKeys\":\"\",\"roleValues\":\"\",\"status\":0,\"usable\":false},\"xm\":\"王贺朝\",\"xnm\":\"2017\",\"xqdm\":\"0\",\"xqh_id\":\"2\",\"xqj\":\"3\",\"xqjmc\":\"星期三\",\"xqm\":\"12\",\"xqmc\":\"南湖校区\",\"xsdm\":\"01\",\"xslxbj\":\"★\",\"zcd\":\"1-7周\",\"zcmc\":\"副教授\",\"zyfxmc\":\"无方向\"},{\"cd_id\":\"sgw0001057\",\"cdmc\":\"博2-B202\",\"jc\":\"9-10节\",\"jcor\":\"9-10\",\"jcs\":\"9-10\",\"jgh_id\":\"090223\",\"jgpxzd\":\"1\",\"jxb_id\":\"5FA3FF5772B2021CE053C0A86D5DC1F2\",\"jxbmc\":\"电子商务专题-0001\",\"kch_id\":\"1108320709STEC\",\"kcmc\":\"电子商务专题\",\"khfsmc\":\"未安排\",\"listnav\":\"false\",\"localeKey\":\"zh_CN\",\"oldjc\":\"768\",\"oldzc\":\"2047\",\"pageable\":true,\"pkbj\":\"1\",\"queryModel\":{\"currentPage\":1,\"currentResult\":0,\"entityOrField\":false,\"limit\":15,\"offset\":0,\"pageNo\":0,\"pageSize\":15,\"showCount\":10,\"totalCount\":0,\"totalPage\":0,\"totalResult\":0},\"rangeable\":true,\"rsdzjs\":0,\"sxbj\":\"1\",\"totalResult\":\"0\",\"userModel\":{\"monitor\":false,\"roleCount\":0,\"roleKeys\":\"\",\"roleValues\":\"\",\"status\":0,\"usable\":false},\"xm\":\"张磊\",\"xnm\":\"2017\",\"xqdm\":\"0\",\"xqh_id\":\"2\",\"xqj\":\"3\",\"xqjmc\":\"星期三\",\"xqm\":\"12\",\"xqmc\":\"南湖校区\",\"xsdm\":\"01\",\"xslxbj\":\"★\",\"zcd\":\"1-11周\",\"zcmc\":\"教授\",\"zyfxmc\":\"无方向\"},{\"cd_id\":\"sgw0000425\",\"cdmc\":\"博2-A503\",\"jc\":\"3-4节\",\"jcor\":\"3-4\",\"jcs\":\"3-4\",\"jgh_id\":\"110069\",\"jgpxzd\":\"1\",\"jxb_id\":\"5F42373F7DDB0072E053C0A86D5CDB54\",\"jxbmc\":\"经济法-0001\",\"kch_id\":\"0301105311ECOL\",\"kcmc\":\"经济法\",\"khfsmc\":\"未安排\",\"listnav\":\"false\",\"localeKey\":\"zh_CN\",\"oldjc\":\"12\",\"oldzc\":\"495\",\"pageable\":true,\"pkbj\":\"1\",\"queryModel\":{\"currentPage\":1,\"currentResult\":0,\"entityOrField\":false,\"limit\":15,\"offset\":0,\"pageNo\":0,\"pageSize\":15,\"showCount\":10,\"totalCount\":0,\"totalPage\":0,\"totalResult\":0},\"rangeable\":true,\"rsdzjs\":0,\"sxbj\":\"1\",\"totalResult\":\"0\",\"userModel\":{\"monitor\":false,\"roleCount\":0,\"roleKeys\":\"\",\"roleValues\":\"\",\"status\":0,\"usable\":false},\"xm\":\"张小青\",\"xnm\":\"2017\",\"xqdm\":\"0\",\"xqh_id\":\"2\",\"xqj\":\"4\",\"xqjmc\":\"星期四\",\"xqm\":\"12\",\"xqmc\":\"南湖校区\",\"xsdm\":\"01\",\"xslxbj\":\"★\",\"zcd\":\"1-4周,6-9周\",\"zcmc\":\"讲师\",\"zyfxmc\":\"无方向\"},{\"cd_id\":\"sgw0001060\",\"cdmc\":\"博2-B404\",\"jc\":\"3-4节\",\"jcor\":\"3-4\",\"jcs\":\"3-4\",\"jgh_id\":\"090197\",\"jgpxzd\":\"1\",\"jxb_id\":\"5F999D917F900054E053C0A86D5DBF56\",\"jxbmc\":\"网络营销-0001\",\"kch_id\":\"1108224209NETM\",\"kcmc\":\"网络营销\",\"khfsmc\":\"未安排\",\"listnav\":\"false\",\"localeKey\":\"zh_CN\",\"oldjc\":\"12\",\"oldzc\":\"261120\",\"pageable\":true,\"pkbj\":\"1\",\"queryModel\":{\"currentPage\":1,\"currentResult\":0,\"entityOrField\":false,\"limit\":15,\"offset\":0,\"pageNo\":0,\"pageSize\":15,\"showCount\":10,\"totalCount\":0,\"totalPage\":0,\"totalResult\":0},\"rangeable\":true,\"rsdzjs\":0,\"sxbj\":\"1\",\"totalResult\":\"0\",\"userModel\":{\"monitor\":false,\"roleCount\":0,\"roleKeys\":\"\",\"roleValues\":\"\",\"status\":0,\"usable\":false},\"xm\":\"张卫华\",\"xnm\":\"2017\",\"xqdm\":\"0\",\"xqh_id\":\"2\",\"xqj\":\"4\",\"xqjmc\":\"星期四\",\"xqm\":\"12\",\"xqmc\":\"南湖校区\",\"xsdm\":\"01\",\"xslxbj\":\"★\",\"zcd\":\"11-18周\",\"zcmc\":\"副教授\",\"zyfxmc\":\"无方向\"},{\"cd_id\":\"sgw0001060\",\"cdmc\":\"博2-B404\",\"jc\":\"5-6节\",\"jcor\":\"5-6\",\"jcs\":\"5-6\",\"jgh_id\":\"090206\",\"jgpxzd\":\"1\",\"jxb_id\":\"5FA6D3477FBE019EE053C0A86D5C4131\",\"jxbmc\":\"信息系统分析与设计-0001\",\"kch_id\":\"1108321309ISAD\",\"kcmc\":\"信息系统分析与设计\",\"khfsmc\":\"未安排\",\"listnav\":\"false\",\"localeKey\":\"zh_CN\",\"oldjc\":\"48\",\"oldzc\":\"130560\",\"pageable\":true,\"pkbj\":\"1\",\"queryModel\":{\"currentPage\":1,\"currentResult\":0,\"entityOrField\":false,\"limit\":15,\"offset\":0,\"pageNo\":0,\"pageSize\":15,\"showCount\":10,\"totalCount\":0,\"totalPage\":0,\"totalResult\":0},\"rangeable\":true,\"rsdzjs\":0,\"sxbj\":\"1\",\"totalResult\":\"0\",\"userModel\":{\"monitor\":false,\"roleCount\":0,\"roleKeys\":\"\",\"roleValues\":\"\",\"status\":0,\"usable\":false},\"xm\":\"杨明智\",\"xnm\":\"2017\",\"xqdm\":\"0\",\"xqh_id\":\"2\",\"xqj\":\"4\",\"xqjmc\":\"星期四\",\"xqm\":\"12\",\"xqmc\":\"南湖校区\",\"xsdm\":\"01\",\"xslxbj\":\"★\",\"zcd\":\"10-17周\",\"zcmc\":\"讲师\",\"zyfxmc\":\"无方向\"},{\"cd_id\":\"sgw0000098\",\"cdmc\":\"博3-B302\",\"jc\":\"1-2节\",\"jcor\":\"1-2\",\"jcs\":\"1-2\",\"jgh_id\":\"090073\",\"jgpxzd\":\"1\",\"jxb_id\":\"5FA79856E5B90254E053C0A86D5D76E0\",\"jxbmc\":\"电子金融与安全-0001\",\"kch_id\":\"1108220509EFAS\",\"kcmc\":\"电子金融与安全\",\"khfsmc\":\"未安排\",\"listnav\":\"false\",\"localeKey\":\"zh_CN\",\"oldjc\":\"3\",\"oldzc\":\"79\",\"pageable\":true,\"pkbj\":\"1\",\"queryModel\":{\"currentPage\":1,\"currentResult\":0,\"entityOrField\":false,\"limit\":15,\"offset\":0,\"pageNo\":0,\"pageSize\":15,\"showCount\":10,\"totalCount\":0,\"totalPage\":0,\"totalResult\":0},\"rangeable\":true,\"rsdzjs\":0,\"sxbj\":\"1\",\"totalResult\":\"0\",\"userModel\":{\"monitor\":false,\"roleCount\":0,\"roleKeys\":\"\",\"roleValues\":\"\",\"status\":0,\"usable\":false},\"xm\":\"王贺朝\",\"xnm\":\"2017\",\"xqdm\":\"0\",\"xqh_id\":\"2\",\"xqj\":\"5\",\"xqjmc\":\"星期五\",\"xqm\":\"12\",\"xqmc\":\"南湖校区\",\"xsdm\":\"01\",\"xslxbj\":\"★\",\"zcd\":\"1-4周,7周\",\"zcmc\":\"副教授\",\"zyfxmc\":\"无方向\"},{\"cd_id\":\"sgw0000524\",\"cdmc\":\"博1-B503\",\"jc\":\"5-6节\",\"jcor\":\"5-6\",\"jcs\":\"5-6\",\"jgh_id\":\"090209\",\"jgpxzd\":\"1\",\"jxb_id\":\"5FC994C6550B0000E053C0A86D5D731E\",\"jxbmc\":\"公司理财-0001\",\"kch_id\":\"1102100609COFI\",\"kcmc\":\"公司理财\",\"khfsmc\":\"未安排\",\"listnav\":\"false\",\"localeKey\":\"zh_CN\",\"oldjc\":\"48\",\"oldzc\":\"79\",\"pageable\":true,\"pkbj\":\"1\",\"queryModel\":{\"currentPage\":1,\"currentResult\":0,\"entityOrField\":false,\"limit\":15,\"offset\":0,\"pageNo\":0,\"pageSize\":15,\"showCount\":10,\"totalCount\":0,\"totalPage\":0,\"totalResult\":0},\"rangeable\":true,\"rsdzjs\":0,\"sxbj\":\"1\",\"totalResult\":\"0\",\"userModel\":{\"monitor\":false,\"roleCount\":0,\"roleKeys\":\"\",\"roleValues\":\"\",\"status\":0,\"usable\":false},\"xm\":\"张涛1\",\"xnm\":\"2017\",\"xqdm\":\"0\",\"xqh_id\":\"2\",\"xqj\":\"5\",\"xqjmc\":\"星期五\",\"xqm\":\"12\",\"xqmc\":\"南湖校区\",\"xsdm\":\"01\",\"xslxbj\":\"★\",\"zcd\":\"1-4周,7周\",\"zcmc\":\"讲师\",\"zyfxmc\":\"无方向\"},{\"cd_id\":\"sgw0001057\",\"cdmc\":\"博2-B202\",\"jc\":\"7-8节\",\"jcor\":\"7-8\",\"jcs\":\"7-8\",\"jgh_id\":\"090223\",\"jgpxzd\":\"1\",\"jxb_id\":\"5FA3FF5772B2021CE053C0A86D5DC1F2\",\"jxbmc\":\"电子商务专题-0001\",\"kch_id\":\"1108320709STEC\",\"kcmc\":\"电子商务专题\",\"khfsmc\":\"未安排\",\"listnav\":\"false\",\"localeKey\":\"zh_CN\",\"oldjc\":\"192\",\"oldzc\":\"1999\",\"pageable\":true,\"pkbj\":\"1\",\"queryModel\":{\"currentPage\":1,\"currentResult\":0,\"entityOrField\":false,\"limit\":15,\"offset\":0,\"pageNo\":0,\"pageSize\":15,\"showCount\":10,\"totalCount\":0,\"totalPage\":0,\"totalResult\":0},\"rangeable\":true,\"rsdzjs\":0,\"sxbj\":\"1\",\"totalResult\":\"0\",\"userModel\":{\"monitor\":false,\"roleCount\":0,\"roleKeys\":\"\",\"roleValues\":\"\",\"status\":0,\"usable\":false},\"xm\":\"张磊\",\"xnm\":\"2017\",\"xqdm\":\"0\",\"xqh_id\":\"2\",\"xqj\":\"5\",\"xqjmc\":\"星期五\",\"xqm\":\"12\",\"xqmc\":\"南湖校区\",\"xsdm\":\"01\",\"xslxbj\":\"★\",\"zcd\":\"1-4周,7-11周\",\"zcmc\":\"教授\",\"zyfxmc\":\"无方向\"}],\"xkkg\":true,\"xqjmcMap\":{\"1\":\"星期一\",\"2\":\"星期二\",\"3\":\"星期三\",\"4\":\"星期四\",\"5\":\"星期五\",\"6\":\"星期六\",\"7\":\"星期日\"}}";
+
+        //http请求
+        String cookie = "JSESSIONID=4C5AE92F5DBC2B2293A7F6967A346465";
+
+        String kcbJson = Main.sendPost("http://202.119.206.62/jwglxt/kbcx/xskbcx_cxXsKb.html","xnm=2017&xqm=4",cookie);
+
 
         JSONArray kbList = (JSONArray) JSONObject.fromObject(kcbJson).get("kbList");
 
@@ -130,7 +133,7 @@ public class Main {
 
                 // 重复事件
                 Integer xqj = kbItem.getInt("xqj");
-                Recur recur = new Recur(Recur.WEEKLY, lastWeekWithLesson-firstWeekWithLesson+1);
+                Recur recur = new Recur(Recur.WEEKLY, lastWeekWithLesson - firstWeekWithLesson + 1);
                 switch (xqj) {
                     case 1:
                         recur.getDayList().add(WeekDay.MO);
@@ -159,7 +162,7 @@ public class Main {
                 meeting.getProperties().add(rule);
 
 
-                // 提醒,提前15分钟
+                // 提醒,提前10分钟
                 VAlarm valarm = new VAlarm(new Dur(0, 0, -15, 0));
                 valarm.getProperties().add(new Summary("课程提醒"));
                 valarm.getProperties().add(Action.DISPLAY);
@@ -182,5 +185,56 @@ public class Main {
         CalendarOutputter outputter = new CalendarOutputter();
         outputter.output(icsCalendar, fout);
 
+    }
+
+
+    public static String sendPost(String url, String paramStr,String cookie) {
+        PrintWriter out = null;
+        BufferedReader in = null;
+        String result = "";
+        url = url + "?" + paramStr;
+        try {
+            URL realUrl = new URL(url);
+            // 打开和URL之间的连接
+            URLConnection conn = realUrl.openConnection();
+            // 设置通用的请求属性
+            conn.setRequestProperty("cookie", cookie);
+            conn.setRequestProperty("accept", "*/*");
+            conn.setRequestProperty("connection", "Keep-Alive");
+            conn.setRequestProperty("user-agent",
+                    "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
+
+            // 发送POST请求必须设置如下两行
+            conn.setDoOutput(true);
+            conn.setDoInput(true);
+            // 获取URLConnection对象对应的输出流
+            out = new PrintWriter(conn.getOutputStream());
+//            out.print(paramStr);
+            // flush输出流的缓冲
+            out.flush();
+            // 定义BufferedReader输入流来读取URL的响应
+            in = new BufferedReader(
+                    new InputStreamReader(conn.getInputStream()));
+            String line;
+            while ((line = in.readLine()) != null) {
+                result += line;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //使用finally块来关闭输出流、输入流
+        finally {
+            try {
+                if (out != null) {
+                    out.close();
+                }
+                if (in != null) {
+                    in.close();
+                }
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return result;
     }
 }
